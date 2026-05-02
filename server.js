@@ -74,6 +74,7 @@ app.post('/api/auth/register', async (req, res) => {
         res.json({ message: "Muvaffaqiyatli ro'yxatdan o'tdingiz", token });
 
     } catch (err) {
+        console.error("Registratsiya xatosi:", err);
         if (err.code === 11000) {
             return res.status(400).json({ error: "Bu foydalanuvchi nomi yoki email allaqachon band" });
         }

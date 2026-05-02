@@ -19,6 +19,7 @@
     "mongoose": "^8.0.0",
     "multer": "^2.1.1",
     "simple-peer": "^9.11.1",
-    "socket.io": "^4.8.3"
+    "socket.io": "^4.8.3",
+    "sqlite3": "^6.0.1"
   }
 }
