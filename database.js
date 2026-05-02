@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://ikoshdev_db_user:Parol2121@cluster0.qlocdba.mongodb.net/arcos?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI)
     .then(() => console.log("✅ MONGODB GA MUVAFFAQIYATLI ULANDI!"))
