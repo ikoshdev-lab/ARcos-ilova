@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARcos — Connect, Share, Discover</title>
+  <meta name="description" content="ARcos — yangi avlod ijtimoiy tarmoq. Ulaning, ulashing, kashf eting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7c3aed">
+</head>
+
+<body>
+
+  <!-- ========== AUTH SECTION ========== -->
+  <section id="auth-section">
+
+    <!-- LOGIN -->
+    <div id="login-page" class="auth-page active">
+      <div class="auth-left">
+        <div class="auth-showcase">
+          <div class="big-logo"><span class="logo-ar">AR</span><span class="logo-cos">cos</span></div>
+          <h1>Connect. Share.<br />Discover.</h1>
+          <p>Do'stlar, oila va yangi tanishlar bilan bog'lanishning eng yaxshi usuli.</p>
+          <div class="showcase-cards">
+            <div class="sc-card"><img src="https://i.pravatar.cc/36?img=1" alt="" /><span>❤️ Aziz sizning rasmingizni
+                yoqtirdi</span></div>
+            <div class="sc-card"><img src="https://i.pravatar.cc/36?img=5" alt="" /><span>✨ Malika sizga obuna
+                bo'ldi</span></div>
+            <div class="sc-card"><img src="https://i.pravatar.cc/36?img=8" alt="" /><span>💬 Jasur izoh qoldirdi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="auth-right">
+        <div class="auth-box">
+          <div class="auth-logo"><img src="favicon.svg" alt="logo" class="logo-icon"
+              style="width: 28px; height: 28px; border-radius: 50%;"><strong>ARcos</strong></div>
+          <h2>Xush kelibsiz!</h2>
+          <p class="auth-sub">Hisobingizga kiring</p>
+          <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+            <div class="field-group">
+              <label>Email yoki foydalanuvchi nomi</label>
+              <input type="text" id="l-ident" placeholder="email@example.com" required />
+            </div>
+            <div class="field-group">
+              <label>Parol</label>
+              <div class="pw-wrap">
+                <input type="password" id="l-pass" placeholder="••••••••" required />
+                <button type="button" class="pw-toggle" onclick="togglePw('l-pass',this)">👁</button>
+              </div>
+            </div>
+            <div class="form-opts">
+              <label class="chk-label"><input type="checkbox" id="remember" /> <span>Meni eslab qol</span></label>
+              <a href="#" class="forgot" onclick="forgotPassword()">Parolni unutdingizmi?</a>
+            </div>
+            <button type="submit" class="btn-primary full">Kirish →</button>
+            <div class="divider"><span>yoki</span></div>
+            <button type="button" class="btn-social" onclick="loginAsGuest()">🚀 Mehmon sifatida ko'rish</button>
+            <p class="switch-auth">Hisob yo'qmi? <a href="#" onclick="switchAuth('register')">Ro'yxatdan o'ting</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="register-page" class="auth-page">
+      <div class="auth-left">
+        <div class="auth-showcase">
+          <div class="big-logo"><span class="logo-ar">AR</span><span class="logo-cos">cos</span></div>
+          <h1>Yangi avlod<br />tarmoq</h1>
+          <p>Millionlab foydalanuvchilar bilan birlashing va o'z dunyangizni ulashing.</p>
+        </div>
+      </div>
+      <div class="auth-right">
+        <div class="auth-box">
+          <div class="auth-logo"><img src="favicon.svg" alt="logo" class="logo-icon"
+              style="width: 28px; height: 28px; border-radius: 50%;"><strong>ARcos</strong></div>
+          <h2>Hisob yarating</h2>
+          <p class="auth-sub">Bugun ARcos'ga qo'shiling</p>
+          <form id="register-form" class="auth-form" onsubmit="handleRegister(event)">
+            <div class="field-row">
+              <div class="field-group"><label>Ism</label><input type="text" id="r-fname" placeholder="Ismingiz"
+                  required /></div>
+              <div class="field-group"><label>Familiya</label><input type="text" id="r-lname" placeholder="Familiyangiz"
+                  required /></div>
+            </div>
+            <div class="field-group">
+              <label>Foydalanuvchi nomi</label>
+              <div class="prefix-wrap"><span class="prefix">@</span><input type="text" id="r-uname"
+                  placeholder="username" required /></div>
+            </div>
+            <div class="field-group"><label>Email</label><input type="email" id="r-email"
+                placeholder="email@example.com" required /></div>
+            <div class="field-group">
+              <label>Parol</label>
+              <div class="pw-wrap">
+                <input type="password" id="r-pass" placeholder="Kamida 8 belgi" required />
+                <button type="button" class="pw-toggle" onclick="togglePw('r-pass',this)">👁</button>
+              </div>
+            </div>
+            <div class="reg-avatar-wrap">
+              <img id="r-avatar-preview" src="https://i.pravatar.cc/150?img=0" alt="Avatar preview" />
+              <div>
+                <label for="r-avatar" class="btn-secondary">Rasm tanlash</label>
+                <input type="file" id="r-avatar" accept="image/*" class="hidden" onchange="previewRegAvatar(event)" />
+              </div>
+            </div>
+            <div class="field-group"><label>Bio (ixtiyoriy)</label><textarea id="r-bio" placeholder="O'zingiz haqida..."
+                rows="2"></textarea></div>
+            <button type="submit" class="btn-primary full">Ro'yxatdan o'tish →</button>
+            <p class="auth-terms">Ro'yxatdan o'tib <a href="#">Shartlarga</a> rozilik bildirasiz.</p>
+            <p class="switch-auth">Hisob bormi? <a href="#" onclick="switchAuth('login')">Kirish</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== APP SECTION ========== -->
+  <div id="app-section" class="hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-logo"><img src="favicon.svg" alt="logo" class="logo-icon"
+          style="width: 28px; height: 28px; border-radius: 50%;"><span class="sb-logo-text">ARcos</span></div>
+      <nav class="sb-nav">
+        <a href="#" class="sb-link active" data-page="home-page" onclick="goTo('home-page',this);return false;">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          <span>Bosh sahifa</span>
+        </a>
+        <a href="#" class="sb-link" data-page="explore-page" onclick="goTo('explore-page',this);return false;">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <span>Kashfiyot</span>
+        </a>
+        <a href="#" class="sb-link" data-page="messages-page" onclick="goTo('messages-page',this);return false;">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span>Xabarlar</span><span class="badge" id="msg-badge">3</span>
+        </a>
+        <a href="#" class="sb-link" data-page="notif-page" onclick="goTo('notif-page',this);return false;">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span>Bildirishnomalar</span><span class="badge" id="notif-badge">5</span>
+        </a>
+        <a href="#" class="sb-link" data-page="profile-page" onclick="goTo('profile-page',this);return false;">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <span>Profil</span>
+        </a>
+        <a href="#" class="sb-link" data-page="settings-page" onclick="openSettings();return false;">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          <span>Sozlamalar</span>
+        </a>
+      </nav>
+      <button class="btn-create" onclick="openCreateModal()">
+        <svg viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Post yaratish
+      </button>
+      <div class="sb-user" id="sb-user">
+        <img id="sb-avatar" src="https://i.pravatar.cc/40?img=20" alt="avatar" />
+        <div>
+          <div class="sb-uname" id="sb-name">Foydalanuvchi</div>
+          <div class="sb-handle" id="sb-handle">@user</div>
+        </div>
+        <button class="sb-more" onclick="toggleTheme()" title="Tema almashtirish">☀</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-area">
+
+      <!-- MOBILE HEADER -->
+      <header class="mobile-header">
+        <div class="mh-logo"><img src="favicon.svg" alt="logo" class="logo-icon"
+            style="width: 28px; height: 28px; border-radius: 50%;"><strong>ARcos</strong></div>
+        <div class="mh-actions">
+          <button class="icon-btn" onclick="toggleTheme()">☀</button>
+          <button class="icon-btn"
+            onclick="goTo('messages-page', document.querySelector('[data-page=\\\'messages-page\\\']'))">✉️</button>
+        </div>
+      </header>
+
+      <!-- HOME PAGE -->
+      <div id="home-page" class="page active">
+        <div class="page-inner feed-layout">
+          <div class="feed-col">
+            <!-- Stories -->
+            <div class="stories-wrap">
+              <div class="stories-scroll" id="stories-list"></div>
+            </div>
+            <!-- Create post quick -->
+            <div class="quick-post">
+              <img id="qp-avatar" src="https://i.pravatar.cc/40?img=20" alt="" class="qp-avatar" />
+              <button class="qp-input" onclick="openCreateModal()">Nima haqida o'ylayapsiz?</button>
+              <button class="qp-photo" onclick="openCreateModal()">📷</button>
+              <button class="qp-photo" onclick="document.getElementById('live-modal').classList.remove('hidden')"
+                title="Efirga chiqish">📡</button>
+            </div>
+            <!-- Feed -->
+            <div id="feed-list"></div>
+          </div>
+          <!-- Right sidebar -->
+          <aside class="right-col">
+            <div class="widget">
+              <h3 class="widget-title">Taklif qilinganlar</h3>
+              <div id="suggested-list"></div>
+            </div>
+            <div class="widget">
+              <h3 class="widget-title">Trend mavzular</h3>
+              <div class="trend-list">
+                <div class="trend-item"><span class="trend-tag">#ARcos</span><span class="trend-cnt">12.4K post</span>
+                </div>
+                <div class="trend-item"><span class="trend-tag">#Texnologiya</span><span class="trend-cnt">8.1K
+                    post</span></div>
+                <div class="trend-item"><span class="trend-tag">#OzbekistanTravel</span><span class="trend-cnt">6.7K
+                    post</span></div>
+                <div class="trend-item"><span class="trend-tag">#Design2026</span><span class="trend-cnt">5.2K
+                    post</span></div>
+                <div class="trend-item"><span class="trend-tag">#Startup</span><span class="trend-cnt">3.9K post</span>
+                </div>
+              </div>
+            </div>
+            <p class="footer-links">© 2026 ARcos · <a href="#">Maxfiylik</a> · <a href="#">Shartlar</a></p>
+          </aside>
+        </div>
+      </div>
+
+      <!-- EXPLORE PAGE -->
+      <div id="explore-page" class="page">
+        <div class="page-inner">
+          <div class="explore-search">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" id="search-input" placeholder="Odamlar, postlar, mavzularni qidiring..."
+              oninput="handleSearch(this.value)" />
+          </div>
+          <div class="explore-tabs">
+            <button class="etab active" onclick="setExploreTab('posts',this)">Postlar</button>
+            <button class="etab" onclick="setExploreTab('people',this)">Odamlar</button>
+            <button class="etab" onclick="setExploreTab('tags',this)">Teglar</button>
+          </div>
+          <div id="explore-content"></div>
+        </div>
+      </div>
+
+      <!-- MESSAGES PAGE -->
+      <div id="messages-page" class="page">
+        <div class="page-inner msgs-layout">
+          <div class="msgs-list-col">
+            <div class="msgs-header">
+              <h2>Xabarlar</h2><button class="icon-btn">✏️</button>
+            </div>
+            <div class="msgs-search"><input type="text" placeholder="Qidirish..." /></div>
+            <div id="chat-list"></div>
+          </div>
+          <div class="msgs-conv-col" id="conv-col">
+            <div class="conv-empty">
+              <div class="conv-empty-icon">💬</div>
+              <h3>Xabaringizni yuboring</h3>
+              <p>Do'stlaringiz bilan xabar almashishni boshlang</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS PAGE -->
+      <div id="notif-page" class="page">
+        <div class="page-inner">
+          <h2 class="page-title">Bildirishnomalar</h2>
+          <div id="notif-list"></div>
+        </div>
+      </div>
+
+      <!-- PROFILE PAGE -->
+      <div id="profile-page" class="page">
+        <div class="page-inner">
+          <div class="profile-cover" id="profile-cover"></div>
+          <div class="profile-info-row">
+            <img id="profile-avatar" src="https://i.pravatar.cc/96?img=20" alt="" class="profile-avatar" />
+            <div class="profile-meta">
+              <h2 id="profile-fullname">Foydalanuvchi</h2>
+              <p id="profile-handle">@user</p>
+              <p id="profile-bio-text" class="profile-bio"></p>
+              <div class="profile-stats">
+                <div class="stat"><strong id="stat-posts">0</strong><span>Post</span></div>
+                <div class="stat"><strong id="stat-followers">0</strong><span>Followers</span></div>
+                <div class="stat"><strong id="stat-following">0</strong><span>Following</span></div>
+              </div>
+            </div>
+            <div class="profile-actions">
+              <button class="btn-primary" onclick="openEditProfile()">Profilni tahrirlash</button>
+            </div>
+          </div>
+          <div class="profile-tabs">
+            <button class="ptab active" onclick="setProfileTab('posts',this)">Postlar</button>
+            <button class="ptab" onclick="setProfileTab('saved',this)">Saqlangan</button>
+          </div>
+          <div id="profile-posts-grid" class="posts-grid"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- BOTTOM NAV (mobile) -->
+    <nav class="bottom-nav">
+      <a href="#" class="bn-link active" onclick="goTo('home-page',this);return false;" data-page="home-page">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      </a>
+      <a href="#" class="bn-link" onclick="goTo('explore-page',this);return false;" data-page="explore-page">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+      </a>
+      <a href="#" class="bn-link bn-create" onclick="openCreateModal();return false;">
+        <svg viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </a>
+      <a href="#" class="bn-link" onclick="goTo('notif-page',this);return false;" data-page="notif-page">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
+      </a>
+      <a href="#" class="bn-link" onclick="goTo('profile-page',this);return false;" data-page="profile-page">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- ========== MODALS ========== -->
+
+  <!-- Create Post Modal -->
+  <div id="create-modal" class="modal-overlay hidden" onclick="closeIfOverlay(event,'create-modal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Yangi post</h3>
+        <button class="modal-close" onclick="closeModal('create-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="cp-user">
+          <img id="cp-avatar" src="https://i.pravatar.cc/40?img=20" alt="" />
+          <span id="cp-name">Foydalanuvchi</span>
+        </div>
+        <textarea id="post-text" class="post-textarea" placeholder="Nima bo'lyapti?"></textarea>
+        <div id="img-preview-wrap" class="img-preview-wrap hidden">
+          <img id="img-preview" src="" alt="preview" />
+          <button class="remove-img" onclick="removeImg()">✕</button>
+        </div>
+        <div class="cp-actions">
+          <label class="cp-action" for="img-upload">📷 Rasm</label>
+          <input type="file" id="img-upload" accept="image/*" class="hidden" onchange="previewImg(event)" />
+          <button class="cp-action" onclick="suggestCaption()">✨ Sehrli matn</button>
+          <button class="cp-action">😊 Emoji</button>
+          <button class="cp-action">📍 Joylashuv</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary full" onclick="submitPost()">Ulashish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post View Modal -->
+  <div id="post-modal" class="modal-overlay hidden" onclick="closeIfOverlay(event,'post-modal')">
+    <div class="modal-box modal-post-view">
+      <button class="modal-close modal-close-abs" onclick="closeModal('post-modal')">✕</button>
+      <div class="pv-img-col" id="pv-img-col"></div>
+      <div class="pv-info-col">
+        <div class="pv-header" id="pv-header"></div>
+        <div class="pv-comments" id="pv-comments"></div>
+        <div class="pv-actions" id="pv-actions"></div>
+        <div class="pv-comment-input">
+          <input type="text" id="pv-comment-text" placeholder="Izoh yozing..." />
+          <button onclick="submitComment()">Yuborish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Edit Profile Modal -->
+  <div id="edit-profile-modal" class="modal-overlay hidden" onclick="closeIfOverlay(event,'edit-profile-modal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Profilni tahrirlash</h3><button class="modal-close" onclick="closeModal('edit-profile-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group"><label>Ism</label><input type="text" id="ep-fname" /></div>
+        <div class="field-group"><label>Familiya</label><input type="text" id="ep-lname" /></div>
+        <div class="field-group"><label>Bio</label><textarea id="ep-bio" rows="3"></textarea></div>
+      </div>
+      <div class="modal-footer"><button class="btn-primary full" onclick="saveProfile()">Saqlash</button></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-overlay hidden" onclick="closeIfOverlay(event,'settings-modal')">
+    <div class="modal-box settings-modal">
+      <div class="modal-header">
+        <h3>Sozlamalar</h3>
+        <button class="modal-close" onclick="closeModal('settings-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-section">
+          <h4>Ko'rinish</h4>
+          <div class="settings-item">
+            <span>Tungi rejim</span>
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h4>Profil</h4>
+          <button class="settings-btn" onclick="openEditProfile();closeModal('settings-modal')">Profilni
+            tahrirlash</button>
+        </div>
+        <div class="settings-section">
+          <h4>Maxfiylik</h4>
+          <div class="settings-item">
+            <span>Yopiq profil</span>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h4>Hisob</h4>
+          <button class="settings-btn danger" onclick="logout()">Chiqish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story View Modal -->
+  <div id="story-modal" class="modal-overlay hidden" onclick="closeStory()">
+    <div class="story-view">
+      <div class="story-header" id="story-user-info"></div>
+      <div class="story-img-container">
+        <img id="story-img" src="" alt="story">
+      </div>
+      <div class="story-reactions">
+        <button onclick="reactToStory('❤️')">❤️</button>
+        <button onclick="reactToStory('🔥')">🔥</button>
+        <button onclick="reactToStory('😂')">😂</button>
+        <button onclick="reactToStory('😮')">😮</button>
+        <button onclick="reactToStory('😢')">😢</button>
+        <button onclick="reactToStory('👏')">👏</button>
+      </div>
+      <button class="modal-close" onclick="closeStory()">✕</button>
+    </div>
+  </div>
+
+  <!-- Live Modal -->
+  <div id="live-modal" class="modal-overlay hidden">
+    <div class="live-container">
+      <div class="live-header">
+        <div class="live-badge">LIVE</div>
+        <div class="live-viewers"><svg viewBox="0 0 24 24">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg> <span id="live-viewer-count">0</span></div>
+        <button class="live-close" onclick="stopLive()">✕</button>
+      </div>
+      <video id="live-video" autoplay playsinline muted></video>
+      <div class="live-footer">
+        <div class="live-user">
+          <img id="live-user-avatar" src="" alt="">
+          <span id="live-user-name">Username</span>
+        </div>
+        <div class="live-actions">
+          <button id="start-stream-btn" class="btn-primary" onclick="startBroadcasting()">Efirni boshlash</button>
+        </div>
+      </div>
+      <div id="live-comments" class="live-comments"></div>
+    </div>
+  </div>
+
+  <!-- Video Call Modal -->
+  <div id="call-modal" class="modal-overlay hidden">
+    <div class="call-container">
+      <div class="call-user-info">
+        <img id="call-avatar" src="" alt="">
+        <h3 id="call-name">Username</h3>
+        <p id="call-status">Qo'ng'iroq qilinmoqda...</p>
+      </div>
+      <div class="call-videos">
+        <video id="local-video" autoplay muted playsinline></video>
+        <video id="remote-video" autoplay playsinline></video>
+      </div>
+      <div class="call-actions">
+        <button id="accept-call" class="btn-primary" style="background:#22c55e" onclick="acceptCall()">Qabul
+          qilish</button>
+        <button id="decline-call" class="btn-primary" style="background:#ef4444" onclick="endCall()">Rad etish</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Bottom Navigation (Mobile Only) -->
+  <nav class="bottom-nav">
+    <button class="bn-link active" data-page="home-page" onclick="goTo('home-page', this)">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    </button>
+    <button class="bn-link" data-page="explore-page" onclick="goTo('explore-page', this)">
+      <svg viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    </button>
+    <button class="bn-link" onclick="openCreateModal()">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+        <line x1="8" y1="12" x2="16" y2="12" />
+      </svg>
+    </button>
+    <button class="bn-link" data-page="notif-page" onclick="goTo('notif-page', this)">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+      </svg>
+    </button>
+    <button class="bn-link" data-page="profile-page" onclick="goTo('profile-page', this)">
+      <svg viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Audio elements for calls -->
+  <audio id="audio-dialing" loop preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_51578f781e.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audio-ringing" loop preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2893892403.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audio-message" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_c35f793616.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Connection Status Indicator -->
+  <div id="conn-status"
+    style="position:fixed; bottom:10px; right:10px; padding:5px 10px; border-radius:20px; font-size:12px; background:rgba(0,0,0,0.5); color:#fff; z-index:9999; pointer-events:none;">
+    Server: <span id="conn-state">Bog'lanish...</span>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('Service Worker registered!'))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+
+</html>
