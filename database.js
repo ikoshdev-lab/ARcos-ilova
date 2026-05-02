@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/arcos';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://ikoshdev_db_user:Parol2121@cluster0.qlocdba.mongodb.net/arcos?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGODB_URI)
     .then(() => console.log("✅ MONGODB GA MUVAFFAQIYATLI ULANDI!"))
@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
     followers_count: { type: Number, default: 0 },
     following_count: { type: Number, default: 0 },
     posts_count: { type: Number, default: 0 },
+    saved_posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     created_at: { type: Date, default: Date.now }
 });
 
